@@ -41,10 +41,25 @@ input:focus, textarea:focus, .text, .input {
     height: 65%;
     width: 65%;
     border-radius: 20px 0 0 20px;
-    background-image: url('../img/icon.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+}
+
+.navigation > .section > .item > .image:nth-child(1) {
+    background-image: url('../img/home.png');
+}
+
+.navigation > .section > .item > .image:nth-child(2) {
+    background-image: url('../img/message.png');
+}
+
+.navigation > .section > .item > .image:nth-child(3) {
+    background-image: url('../img/trash.png');
+}
+
+.navigation > .section > .item > .image:nth-child(4) {
+    background-image: url('../img/add.png');
 }
 
 .navigation > .section > .selector {
@@ -102,7 +117,7 @@ input:focus, textarea:focus, .text, .input {
 .search-bar > .search > .image {
     height: 70%;
     width: 70%;
-    background-image: url('../img/icon.png');
+    background-image: url('../img/search.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -147,7 +162,7 @@ input:focus, textarea:focus, .text, .input {
 .settings > .image, .edit > .image, .yeybook-logo > .image {
     height: 35px;
     width: 35px;
-    background-image: url('../img/icon.png');
+    background-image: url('../img/logo.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -205,10 +220,17 @@ input:focus, textarea:focus, .text, .input {
 .types > .item > .section > .image {
     height: 60%;
     width: 100%;
-    background-image: url('../img/icon.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+}
+
+.types > .item > .section > .image:nth-child(1) {
+    background-image: url('../img/anonymous.png');
+}
+
+.types > .item > .section > .image:nth-child(1) {
+    background-image: url('../img/signed.png');
 }
 
 .items {
@@ -503,7 +525,7 @@ input:focus, textarea:focus, .text, .input {
 .send-button > .image {
     height: 70%;
     width: 70%;
-    background-image: url('../img/icon.png');
+    background-image: url('../img/send-2.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -552,7 +574,7 @@ input:focus, textarea:focus, .text, .input {
 .user .show-button > .image {
     height: 70%;
     width: 70%;
-    background-image: url("../img/icon.png");
+    background-image: url("../img/open.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
