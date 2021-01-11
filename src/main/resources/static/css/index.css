@@ -162,10 +162,21 @@ input:focus, textarea:focus, .text, .input {
 .settings > .image, .edit > .image, .yeybook-logo > .image {
     height: 35px;
     width: 35px;
-    background-image: url('../img/logo.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+}
+
+.settings > .image {
+    background-image: url('../img/settings.png');
+}
+
+.edit > .image {
+    background-image: url('../img/edit.png');
+}
+
+.yeybook-logo > .image {
+    background-image: url('../img/logo.png');
 }
 
 .communication {
@@ -229,7 +240,7 @@ input:focus, textarea:focus, .text, .input {
     background-image: url('../img/anonymous.png');
 }
 
-.types > .item > .section > .image:nth-child(1) {
+.types > .item > .section > .image:nth-child(2) {
     background-image: url('../img/signed.png');
 }
 
