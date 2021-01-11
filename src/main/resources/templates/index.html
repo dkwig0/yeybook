@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script th:src="@{/js/index.js}"></script>
+</head>
+<body>
+<div class="side-bar">
+    <div class="navigation">
+        <div class="section">
+            <div class="item" onclick="sideBarSelect(this)">
+                <div class="image"></div>
+            </div>
+            <div class="item" onclick="sideBarSelect(this)">
+                <div class="image"></div>
+            </div>
+            <div class="item" onclick="sideBarSelect(this)">
+                <div class="image"></div>
+            </div>
+            <div class="item" onclick="sideBarSelect(this)">
+                <div class="image"></div>
+            </div>
+            <div class="selector"></div>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="top-bar">
+        <div class="search-bar">
+            <div class="search">
+                <div class="image"></div>
+            </div>
+            <div role="textbox" class="input" contenteditable="true"></div>
+        </div>
+        <div class="settings">
+            <div class="image"></div>
+        </div>
+        <div class="edit">
+            <div class="image"></div>
+        </div>
+        <div class="yeybook-logo">
+            <div class="image"></div>
+        </div>
+    </div>
+    <div class="communication">
+        <div class="chats">
+            <div class="types">
+                <div class="item" onclick="showAnonymous()">
+                    <div class="section">
+                        <div class="image"></div>
+                    </div>
+                </div>
+                <div class="item" onclick="showSigned()">
+                    <div class="section">
+                        <div class="image"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="items" onscroll="moveChatSelector()">
+                <div class="item anonymous" onclick="showChat(this)">
+                    <div class="left">
+                        <div class="avatar">
+                            <div class="image"></div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="name">Big Smoke</div>
+                        <div class="last-message">My dog... big number 9</div>
+                    </div>
+                </div>
+                <div class="item anonymous" onclick="showChat(this)"></div>
+                <div class="item anonymous" onclick="showChat(this)"></div>
+                <div class="item anonymous" onclick="showChat(this)"></div>
+                <div class="item anonymous" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+                <div class="item signed" onclick="showChat(this)"></div>
+            </div>
+            <div class="selector signed">
+                <div class="chat-part"></div>
+                <div class="section">
+                    <div class="point"></div>
+                </div>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="messages">
+                <div class="message alien">
+                    <div class="section">
+                        <div class="text">
+                            <div class="the-text-itself">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis scelerisque congue accumsan. Donec ac risus quis eros euismod sollicitudin. Quisque tincidunt ac sem vitae fermentum. Phasellus pulvinar eleifend lacus, id tempor sem faucibus et. Sed non metus at leo laoreet elementum. Suspendisse potenti. Donec tincidunt pellentesque tortor non venenatis. Ut posuere convallis purus, eget consectetur ex efficitur vitae. Proin hendrerit tellus eget erat luctus, sit amet pellentesque ipsum venenatis.</div>
+                        </div>
+                        <div class="bubbles">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <div class="image"></div>
+                    </div>
+                </div>
+                <div class="message alien">
+                    <div class="section">
+                        <div class="text">
+                            <div class="the-text-itself">You picked the wrong house fool!!!</div>
+                        </div>
+                        <div class="bubbles">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <div class="image"></div>
+                    </div>
+                </div>
+                <div class="message alien">
+                    <div class="section">
+                        <div class="text">
+                            <div class="the-text-itself">You picked the wrong house fool!!!</div>
+                        </div>
+                        <div class="bubbles">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <div class="image"></div>
+                    </div>
+                </div>
+                <div class="message alien">
+                    <div class="section">
+                        <div class="text">
+                            <div class="the-text-itself">You picked the wrong house fool!!!</div>
+                        </div>
+                        <div class="bubbles">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <div class="image"></div>
+                    </div>
+                </div>
+                <div class="message alien">
+                    <div class="section">
+                        <div class="text">
+                            <div class="the-text-itself">You picked the wrong house fool!!!</div>
+                        </div>
+                        <div class="bubbles">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <div class="image"></div>
+                    </div>
+                </div>
+                <div class="message alien">
+                    <div class="section">
+                        <div class="text">
+                            <div class="the-text-itself">You picked the wrong house fool!!!</div>
+                        </div>
+                        <div class="bubbles">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <div class="image"></div>
+                    </div>
+                </div>
+                <div class="message alien">
+                    <div class="section">
+                        <div class="text">
+                            <div class="the-text-itself">You picked the wrong house fool!!!</div>
+                        </div>
+                        <div class="bubbles">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <div class="image"></div>
+                    </div>
+                </div>
+                <div class="message predator">
+                    <div class="section">
+                        <div class="text">
+                            <div class="the-text-itself">Hey-ey-ey-ey, Big Smoke, it's me Carl, chill chill!</div>
+                        </div>
+                        <div class="bubbles">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <div class="image"></div>
+                    </div>
+                </div>
+                <div class="message alien">
+                    <div class="section">
+                        <div class="text">
+                            <div class="the-text-itself">OOOOOOOOOHHH, my dog!!!!</div>
+                        </div>
+                        <div class="bubbles">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <div class="image"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-message">
+                <div class="input">
+                    <div class="text" id="new-message" oninput="newMessageInput(this)" contenteditable="true"></div>
+                </div>
+                <div class="send-button">
+                    <div class="image"></div>
+                </div>
+            </div>
+        </div>
+        <div class="user">
+            <div class="show-button" onclick="showUser()">
+                <div class="image"></div>
+            </div>
+            <div class="main-info">
+                <div class="shown">
+                    <div class="avatar">
+                        <div class="image"></div>
+                    </div>
+                    <div class="name">Carl Johnson</div>
+                    <div class="age">32</div>
+                    <div class="phone">+1-35-232-222-22</div>
+                </div>
+                <div class="hidden">
+                    <div class="email">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque neque arcu, ac finibus nunc laoreet vitae. Proin rhoncus nisi accumsan, pellentesque leo tristique, vehicula augue. Morbi in semper quam, sit amet viverra massa. Nulla vel imperdiet nunc. Nulla eu mauris eu neque semper congue sit amet vitae tellus. Maecenas scelerisque nisl vitae eros dapibus, in euismod nulla auctor. Nam ipsum libero, gravida eget odio quis, consequat aliquet enim. Proin iaculis elementum massa ac tincidunt. Sed mattis dolor at sapien malesuada, luctus molestie odio tristique. Morbi ac pretium est.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
