@@ -38,27 +38,26 @@ input:focus, textarea:focus, .text, .input {
 }
 
 .navigation > .section > .item > .image {
-    height: 65%;
-    width: 65%;
-    border-radius: 20px 0 0 20px;
+    height: 45%;
+    width: 45%;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
 }
 
-.navigation > .section > .item > .image:nth-child(1) {
+.navigation > .section > .item:nth-child(1) > .image {
     background-image: url('../img/home.png');
 }
 
-.navigation > .section > .item > .image:nth-child(2) {
+.navigation > .section > .item:nth-child(2) > .image {
     background-image: url('../img/message.png');
 }
 
-.navigation > .section > .item > .image:nth-child(3) {
+.navigation > .section > .item:nth-child(3) > .image {
     background-image: url('../img/trash.png');
 }
 
-.navigation > .section > .item > .image:nth-child(4) {
+.navigation > .section > .item:nth-child(4) > .image {
     background-image: url('../img/add.png');
 }
 
@@ -160,11 +159,19 @@ input:focus, textarea:focus, .text, .input {
 }
 
 .settings > .image, .edit > .image, .yeybook-logo > .image {
-    height: 35px;
-    width: 35px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+}
+
+.settings > .image, .edit > .image {
+    height: 28px;
+    width: 28px;
+}
+
+.yeybook-logo > .image {
+    height: 70%;
+    width: 70%;
 }
 
 .settings > .image {
@@ -236,11 +243,11 @@ input:focus, textarea:focus, .text, .input {
     background-position: center;
 }
 
-.types > .item > .section > .image:nth-child(1) {
+.types > .item:nth-child(1) > .section > .image {
     background-image: url('../img/anonymous.png');
 }
 
-.types > .item > .section > .image:nth-child(2) {
+.types > .item:nth-child(2) > .section > .image {
     background-image: url('../img/signed.png');
 }
 
@@ -589,12 +596,12 @@ input:focus, textarea:focus, .text, .input {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    transform: rotate(-45deg);
+    transform: rotate(-135deg) translate(0, -4px);
     transition: 0.7s;
 }
 
 .user.show .show-button > .image {
-    transform: rotate(135deg);
+    transform: rotate(45deg) translate(0, -3px);
     transition: 0.7s;
 }
 
