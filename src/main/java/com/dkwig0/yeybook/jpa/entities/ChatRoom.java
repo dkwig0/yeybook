@@ -1,6 +1,7 @@
 package com.dkwig0.yeybook.jpa.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,11 +16,11 @@ public class ChatRoom {
     private Long id;
 
     @ManyToMany(mappedBy = "chatRooms", fetch = FetchType.EAGER)
-    @JsonIgnore
+    @JsonIgnoreProperties(value = {"chatRooms", "messages"})
     private List<User> users;
 
     @OneToMany(mappedBy = "chatRoom")
-    @JsonIgnore
+    @JsonIgnoreProperties(value = {"user", "chatRoom"})
     private List<Message> messages;
 
     private boolean anonymous;
