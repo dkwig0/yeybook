@@ -1,6 +1,7 @@
 package com.dkwig0.yeybook.jpa.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,6 +19,8 @@ public class User implements UserDetails {
     private Long id;
 
     private String username;
+
+    @JsonIgnore
     private String password;
     private boolean active;
 
@@ -25,11 +28,11 @@ public class User implements UserDetails {
     @JoinTable(name = "rooms_users",
             joinColumns = @JoinColumn(name = "usr_id"),
             inverseJoinColumns = @JoinColumn(name = "chat_room_id"))
-    @JsonIgnore
+    @JsonIgnoreProperties(value = {"users", "messages"})
     private List<ChatRoom> chatRooms;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
+    @JsonIgnoreProperties(value = {"user", "chatRoom"})
     private List<Message> messages;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
