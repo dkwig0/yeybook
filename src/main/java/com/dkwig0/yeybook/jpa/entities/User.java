@@ -29,30 +29,30 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "usr_id"),
             inverseJoinColumns = @JoinColumn(name = "chat_room_id"))
     @JsonIgnoreProperties(value = {"users", "messages"})
-    private List<ChatRoom> chatRooms;
+    private Set<ChatRoom> chatRooms;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties(value = {"user", "chatRoom"})
-    private List<Message> messages;
+    private Set<Message> messages;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "usr_roles", joinColumns = @JoinColumn(name = "usr_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public List<ChatRoom> getChatRooms() {
+    public Set<ChatRoom> getChatRooms() {
         return chatRooms;
     }
 
-    public void setChatRooms(List<ChatRoom> chatRooms) {
+    public void setChatRooms(Set<ChatRoom> chatRooms) {
         this.chatRooms = chatRooms;
     }
 
-    public List<Message> getMessages() {
+    public Set<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<Message> messages) {
+    public void setMessages(Set<Message> messages) {
         this.messages = messages;
     }
 
