@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -26,6 +27,11 @@ public class UserRestApi {
     @GetMapping("{id}")
     public User userById(@PathVariable Long id) {
         return ur.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @GetMapping("me")
+    public User me(Principal principal) {
+        return ur.findByUsername(principal.getName());
     }
 
 }

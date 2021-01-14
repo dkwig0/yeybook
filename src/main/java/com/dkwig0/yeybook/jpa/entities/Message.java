@@ -1,5 +1,6 @@
 package com.dkwig0.yeybook.jpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "chat_room_id")
-    @JsonIgnoreProperties(value = {"users", "messages"})
+    @JsonIgnore
     private ChatRoom chatRoom;
 
     @Column(name = "date")

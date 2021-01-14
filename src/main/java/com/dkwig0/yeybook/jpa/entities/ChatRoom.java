@@ -20,7 +20,6 @@ public class ChatRoom {
     private Set<User> users;
 
     @OneToMany(mappedBy = "chatRoom")
-    @JsonIgnoreProperties(value = {"user", "chatRoom"})
     private Set<Message> messages;
 
     private boolean anonymous;
@@ -56,9 +55,6 @@ public class ChatRoom {
         this.anonymous = anonymous;
     }
 
-    public String getName(User currentUser) {
-        return users.stream().filter(u -> !u.getUsername().equals(currentUser.getUsername()))
-                .map(User::getUsername)
-                .reduce((x,y) -> x + ", " + y).orElse("Myself");
-    }
+
+
 }

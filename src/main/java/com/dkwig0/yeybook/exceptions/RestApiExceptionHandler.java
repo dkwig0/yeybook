@@ -16,6 +16,12 @@ public class RestApiExceptionHandler {
     public ModelAndView onUserNotFound(UserNotFoundException e) {
         return new ModelAndView("index");
     }
+    @ResponseBody
+    @ExceptionHandler(MessageNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ModelAndView onUserNotFound(MessageNotFoundException e) {
+        return new ModelAndView("index");
+    }
 
     @ResponseBody
     @ExceptionHandler(ChatRoomNotFoundException.class)
