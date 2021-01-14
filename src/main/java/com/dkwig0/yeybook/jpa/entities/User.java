@@ -28,6 +28,7 @@ public class User implements UserDetails {
     @JoinTable(name = "rooms_users",
             joinColumns = @JoinColumn(name = "usr_id"),
             inverseJoinColumns = @JoinColumn(name = "chat_room_id"))
+    @JsonIgnoreProperties(value = {"users", "messages"})
     private Set<ChatRoom> chatRooms;
 
     @OneToMany(mappedBy = "user")
