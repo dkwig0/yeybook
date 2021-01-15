@@ -1,3 +1,16 @@
+let myname = '';
+
+$(document).ready(function () {
+    myname = $.ajax({
+        url: 'api/users/me',
+        type: 'GET',
+        dataType: 'json',
+        success: function (user) {
+            myname = Object.assign({}, user).username;
+        }
+    });
+});
+
 $('.side-bar').ready(function () {
     $('.navigation > .section > .item').first().trigger('click');
 });
@@ -6,6 +19,9 @@ $('.messages').ready(function () {
     scrollDown();
 });
 
+$('.chats > .items').ready(function () {
+    loadChats()
+});
 
 $(window).resize(function () {
    $('.chats > .selector').css('display', 'none');
@@ -32,6 +48,8 @@ function moveChatSelector() {
     $('.chats > .selector').css({'top': $('.items > .item.showed').position().top + 'px'});
 };
 function showChat(chat) {
+
+    loadChat($(chat).attr('id'));
 
     hideChatSelector();
 
@@ -113,4 +131,94 @@ function showSigned() {
 
 function scrollDown() {
     $('.messages').get(0).scrollTo(0, $('.messages').get(0).scrollHeight);
+}
+
+function loadChats() {
+    let chats = $('.chats > .items');
+
+    chats.empty();
+
+    $.ajax({
+        url: 'api/users/me',
+        type: "GET",
+        dataType: "json",
+        success: function (user) {
+            for (let i = 0; i < user.chatRooms.length; i++) {
+                $.ajax({
+                    url: 'api/chats/' + user.chatRooms[i].id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (chat) {
+                        let lastMessage;
+                        try {
+                            lastMessage = chat.messages[chat.messages.length - 1].text;
+                        } catch (e) {
+                            lastMessage = '';
+                        }
+                        $('.chats > .items').append('<div class="item signed" onclick="showChat(this)" id="' + user.chatRooms[i].id + '">' +
+                            '<div class="left">' +
+                            '<div class="avatar">' +
+                            '<div class="image"></div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="right">' +
+                            '<div class="name">' + chat.users
+                                .filter(u => u.username != user.username)
+                                .map(u => u.username)
+                                .reduce((u1, u2) => u1 + ', ' + u2) + '</div>' +
+                            '<div class="last-message">' + lastMessage + '</div>' +
+                            '</div>' +
+                            '</div>');
+                    }
+                });
+            }
+
+        }
+
+    });
+
+}
+
+function loadChat(id) {
+    $('.chat > .messages').empty();
+    $.ajax({
+        url: 'api/chats/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (chat) {
+            let messages = chat.messages;
+            messages.sort(function (m1, m2) {
+                if (new Date(m1.date).getTime() > new Date(m2.date).getTime())
+                    return 1;
+                else if (new Date(m1.date).getTime() < new Date(m2.date).getTime())
+                    return -1;
+                else
+                    return 0;
+            });
+            console.log(messages);
+            for (let i = 0; i < messages.length; i++) {
+                let whose;
+                if (messages[i].user.username == myname) {
+                    whose = 'predator';
+                } else {
+                    whose = 'alien';
+                }
+                $('.chat > .messages').append('<div class="message ' + whose + '">' +
+                        '<div class="section">' +
+                            '<div class="text">' +
+                                '<div class="the-text-itself">' + messages[i].text + '</div>' +
+                            '</div>' +
+                            '<div class="bubbles">' +
+                                '<div class="bubble"></div>' +
+                                '<div class="bubble"></div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="avatar">' +
+                            '<div class="image"></div>' +
+                        '</div>' +
+                    '</div>');
+            }
+
+        }
+    });
 }

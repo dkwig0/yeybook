@@ -370,7 +370,9 @@ input:focus, textarea:focus, .text, .input {
 .messages {
     position: absolute;
     top: 0;
+    right: 0;
     bottom: 60px;
+    left: 0;
     margin: 20px 10px 10px 10px;
     overflow: scroll;
 }
@@ -440,6 +442,7 @@ input:focus, textarea:focus, .text, .input {
     width: fit-content;
     border-radius: 20px;
     background: #b488b2;
+    word-break: break-all;
 }
 
 .message.predator > .section > .text {
