@@ -55,6 +55,13 @@ public class ChatRoom {
         this.anonymous = anonymous;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "ChatRoom{" +
+                "id=" + id +
+                ", users=" + users +
+                ", messages=" + messages +
+                ", anonymous=" + anonymous +
+                '}';
+    }
 }

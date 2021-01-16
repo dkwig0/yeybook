@@ -186,6 +186,7 @@ function loadChat(id) {
         type: 'GET',
         dataType: 'json',
         success: function (chat) {
+            $('.chat').attr('id', chat.id);
             let messages = chat.messages;
             messages.sort(function (m1, m2) {
                 if (new Date(m1.date).getTime() > new Date(m2.date).getTime())
@@ -195,7 +196,6 @@ function loadChat(id) {
                 else
                     return 0;
             });
-            console.log(messages);
             for (let i = 0; i < messages.length; i++) {
                 let whose;
                 if (messages[i].user.username == myname) {
@@ -221,4 +221,47 @@ function loadChat(id) {
 
         }
     });
+}
+
+function sendMessage() {
+    $.ajax({
+        url: 'api/chats/' + $('.chat').attr('id'),
+        type: 'GET',
+        dataType: 'json',
+        success: function (chat) {
+            $.ajax({
+                url: 'api/messages',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(new Message($('.new-message > .input > .text').html(),
+                    null, new ChatRoom(chat.id, null, null, null), null, null)),
+                success: function () {
+
+                }
+            });
+        }
+    });
+
+}
+
+class Message {
+    constructor(text, user, chatRoom, date, id) {
+        this.text = text;
+        this.user = user;
+        this.chatRoom = chatRoom;
+        this.date = date;
+        this.id = id;
+    }
+
+
+}
+
+class ChatRoom {
+    constructor(id, users, messages, anon) {
+        this.id = id;
+        this.users = users;
+        this.messages = messages;
+        this.anonymous = anon;
+    }
 }

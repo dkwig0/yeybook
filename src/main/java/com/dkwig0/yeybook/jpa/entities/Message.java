@@ -21,7 +21,7 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "chat_room_id")
-    @JsonIgnore
+    @JsonIgnoreProperties(value = {"users", "messages"})
     private ChatRoom chatRoom;
 
     @Column(name = "date")
@@ -32,6 +32,13 @@ public class Message {
 
 
     public Message() {
+    }
+
+    public Message(User user, ChatRoom chatRoom, LocalDateTime date, String text) {
+        this.user = user;
+        this.chatRoom = chatRoom;
+        this.date = date;
+        this.text = text;
     }
 
     public LocalDateTime getDate() {
@@ -68,5 +75,16 @@ public class Message {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", userId=" + user.getId() +
+                ", chatRoomId=" + chatRoom.getId() +
+                ", date=" + date +
+                ", text='" + text + '\'' +
+                '}';
     }
 }
