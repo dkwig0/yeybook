@@ -1,5 +1,12 @@
 let myname = '';
 
+var page = 0;
+const pageSize = 5;
+
+var stomp;
+
+connect()
+
 $(document).ready(function () {
     myname = $.ajax({
         url: 'api/users/me',
@@ -67,7 +74,7 @@ function showChat(chat) {
     setTimeout(function () {
 
         selector.css({'left': $('.items').width() - (selector.width()
-                + parseInt($('.items > .item').first().css('margin').split('px')[0], 10) * 2) + 'px',
+                + parseInt($('.items > .item').first().css('margin').split('px')[0], 10) * 2) + 10 + 'px',
             'top': $(chat).position().top + 'px'});
         selector.css('display', 'block');
         openChatSelector();
@@ -110,10 +117,13 @@ function showUser() {
 }
 
 function sideBarSelect(item) {
-    $('.navigation > .section > .selector').css('top', $(item).position().top);
+    $('.navigation > .section > .item.selected').removeClass('selected')
+    $(item).addClass('selected')
 }
 
 function showAnonymous() {
+    $('.types > .item:nth-of-type(1)').removeClass('selected')
+    $('.types > .item:nth-of-type(2)').addClass('selected')
     $('.chats > .selector').removeClass('signed');
     $('.chats > .selector').addClass('anonymous');
     $('.chats > .selector').css('display', 'none');
@@ -122,6 +132,8 @@ function showAnonymous() {
 }
 
 function showSigned() {
+    $('.types > .item:nth-of-type(2)').removeClass('selected')
+    $('.types > .item:nth-of-type(1)').addClass('selected')
     $('.chats > .selector').addClass('signed');
     $('.chats > .selector').removeClass('anonymous');
     $('.chats > .selector').css('display', 'none');
@@ -143,6 +155,8 @@ function loadChats() {
         type: "GET",
         dataType: "json",
         success: function (user) {
+            stomp.connect({}, frame => {
+                console.log(frame);
             for (let i = 0; i < user.chatRooms.length; i++) {
                 $.ajax({
                     url: 'api/chats/' + user.chatRooms[i].id,
@@ -169,10 +183,11 @@ function loadChats() {
                             '<div class="last-message">' + lastMessage + '</div>' +
                             '</div>' +
                             '</div>');
+                        subscribe(user.chatRooms[i].id);
                     }
                 });
             }
-
+            })
         }
 
     });
@@ -180,69 +195,91 @@ function loadChats() {
 }
 
 function loadChat(id) {
-    $('.chat > .messages').empty();
+    page = 1;
+    $('.messages').html('')
     $.ajax({
-        url: 'api/chats/' + id,
+        url: 'api/chats/' + id + '/messages?page=0&size=' + pageSize,
         type: 'GET',
         dataType: 'json',
-        success: function (chat) {
-            $('.chat').attr('id', chat.id);
-            let messages = chat.messages;
-            messages.sort(function (m1, m2) {
-                if (new Date(m1.date).getTime() > new Date(m2.date).getTime())
-                    return 1;
-                else if (new Date(m1.date).getTime() < new Date(m2.date).getTime())
-                    return -1;
-                else
-                    return 0;
-            });
+        success: function (messages) {
+            $('.chat').attr('id', id);
             for (let i = 0; i < messages.length; i++) {
-                let whose;
-                if (messages[i].user.username == myname) {
-                    whose = 'predator';
-                } else {
-                    whose = 'alien';
-                }
-                $('.chat > .messages').append('<div class="message ' + whose + '">' +
-                        '<div class="section">' +
-                            '<div class="text">' +
-                                '<div class="the-text-itself">' + messages[i].text + '</div>' +
-                            '</div>' +
-                            '<div class="bubbles">' +
-                                '<div class="bubble"></div>' +
-                                '<div class="bubble"></div>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="avatar">' +
-                            '<div class="image"></div>' +
-                        '</div>' +
-                    '</div>');
+                prependMessage(messages[i]);
             }
-
+            scrollDown();
         }
     });
 }
 
-function sendMessage() {
+function loadMore() {
     $.ajax({
-        url: 'api/chats/' + $('.chat').attr('id'),
+        url: 'api/chats/' + $('.chat').attr('id') + '/messages?page=0&size=' + pageSize,
         type: 'GET',
         dataType: 'json',
-        success: function (chat) {
-            $.ajax({
-                url: 'api/messages',
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json',
-                data: JSON.stringify(new Message($('.new-message > .input > .text').html(),
-                    null, new ChatRoom(chat.id, null, null, null), null, null)),
-                success: function () {
-
-                }
-            });
+        success: function (messages) {
+            console.log(messages)
+            for (let i = 0; i < messages.length; i++) {
+                prependMessage(messages[i]);
+            }
+            page++;
+            scrollDown();
         }
     });
+}
 
+function connect() {
+    var sock = new SockJS('/messages')
+    stomp = Stomp.over(sock);
+
+}
+
+function subscribe(id) {
+    stomp.subscribe('/topic/' + id, function (message) {
+        const soundEffect = new Audio('sound.wav');
+        soundEffect.play();
+        appendMessage(JSON.parse(message.body));
+    });
+}
+
+function sendMessage() {
+
+    stomp.send('/chat/' + $('.chat').first().attr('id'), {}, JSON.stringify({'text':
+            $('.new-message > .input > .text').html(),
+            'chatRoom': {'id': $('.chat.showed').attr('id')}}));
+}
+
+function appendMessage(message) {
+    let whose;
+    if (message.user.username == myname) {
+        whose = 'predator';
+    } else {
+        whose = 'alien';
+    }
+    $('.chat > .messages').append('<div class="message ' + whose + '">' +
+        '<div class="section">' +
+        '<div class="text">' +
+        '<div class="the-text-itself">' + message.text + '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>');
+    scrollDown()
+}
+
+function prependMessage(message) {
+    let whose;
+    if (message.user.username == myname) {
+        whose = 'predator';
+    } else {
+        whose = 'alien';
+    }
+    $('.chat > .messages').prepend('<div class="message ' + whose + '">' +
+        '<div class="section">' +
+        '<div class="text">' +
+        '<div class="the-text-itself">' + message.text + '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>');
+    scrollDown()
 }
 
 class Message {

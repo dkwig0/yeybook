@@ -14,6 +14,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -38,6 +39,7 @@ public class MessageRestApi {
     public Message messageById(@PathVariable Long id) {
         return mr.findById(id).orElseThrow(() -> new MessageNotFoundException(id));
     }
+
 
     @PostMapping
     public Message sendMessage(@RequestBody Message message, Principal principal) {

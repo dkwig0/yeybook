@@ -22,7 +22,8 @@ public class YeybookSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
-                .antMatchers("/registration", "/js/*", "/css/*").permitAll()
+                .antMatchers("/registration", "/js/*", "/css/*", "/static/wav/*")
+                    .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

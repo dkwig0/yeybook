@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script th:src="@{/js/index.js}"></script>
-    <script src="../static/js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
     <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <script src="../static/js/index.js"></script>
+    <script th:src="@{/js/index.js}"></script>
 </head>
 <body>
 <div class="side-bar">
     <div class="navigation">
         <div class="section">
-            <div class="item" onclick="sideBarSelect(this)">
+            <div class="item selected" onclick="sideBarSelect(this)">
                 <div class="image"></div>
             </div>
             <div class="item" onclick="sideBarSelect(this)">
@@ -22,10 +26,6 @@
             <div class="item" onclick="sideBarSelect(this)">
                 <div class="image"></div>
             </div>
-            <div class="item" onclick="sideBarSelect(this)">
-                <div class="image"></div>
-            </div>
-            <div class="selector"></div>
         </div>
     </div>
 </div>
@@ -35,7 +35,9 @@
             <div class="search">
                 <div class="image"></div>
             </div>
-            <div role="textbox" class="input" contenteditable="true"></div>
+            <div class="input-wrapper">
+                <input class="input" placeholder="Search...">
+            </div>
         </div>
         <div class="settings">
             <div class="image"></div>
@@ -50,12 +52,12 @@
     <div class="communication">
         <div class="chats">
             <div class="types">
-                <div class="item" onclick="showAnonymous()">
+                <div class="item selected" onclick="showSigned()">
                     <div class="section">
                         <div class="image"></div>
                     </div>
                 </div>
-                <div class="item" onclick="showSigned()">
+                <div class="item" onclick="showAnonymous()">
                     <div class="section">
                         <div class="image"></div>
                     </div>
@@ -99,7 +101,20 @@
         </div>
         <div class="chat">
             <div class="messages">
-
+                <div class="message alien">
+                    <div class="section">
+                        <div class="text">
+                            <div class="the-text-itself">test text</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="message predator">
+                    <div class="section">
+                        <div class="text">
+                            <div class="the-text-itself">test text</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="new-message">
                 <div class="input">
@@ -110,21 +125,17 @@
                 </div>
             </div>
         </div>
-        <div class="user">
-            <div class="show-button" onclick="showUser()">
-                <div class="image"></div>
-            </div>
-            <div class="main-info">
-                <div class="shown">
+        <div class="user-wrapper">
+            <div class="user">
+                <div class="main-info">
                     <div class="avatar">
                         <div class="image"></div>
                     </div>
                     <div class="name">Carl Johnson</div>
-                    <div class="age">32</div>
-                    <div class="phone">+1-35-232-222-22</div>
-                </div>
-                <div class="hidden">
-                    <div class="email">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque neque arcu, ac finibus nunc laoreet vitae. Proin rhoncus nisi accumsan, pellentesque leo tristique, vehicula augue. Morbi in semper quam, sit amet viverra massa. Nulla vel imperdiet nunc. Nulla eu mauris eu neque semper congue sit amet vitae tellus. Maecenas scelerisque nisl vitae eros dapibus, in euismod nulla auctor. Nam ipsum libero, gravida eget odio quis, consequat aliquet enim. Proin iaculis elementum massa ac tincidunt. Sed mattis dolor at sapien malesuada, luctus molestie odio tristique. Morbi ac pretium est.</div>
+                    <div class="phone">+48-731-235-395</div>
+                    <div class="email">e@mail.com</div>
+                    <div class="age">32 y.o.</div>
+                    <div class="bio">Cum torquis crescere, omnes adelphises desiderium grandis, primus zeluses.Velox, germanus cannabiss nunquam amor de festus, ferox vita.Nobilis glutens ducunt ad detrius.</div>
                 </div>
             </div>
         </div>
