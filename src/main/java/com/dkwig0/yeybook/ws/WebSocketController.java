@@ -29,8 +29,7 @@ public class WebSocketController {
     public Message sendMessage(Message message, @DestinationVariable("chatId") Long id, Principal principal) {
         message.setUser(ur.findByUsername(principal.getName()));
         message.setChatRoom(crr.findById(id).get());
-//        message.setChatRoom(crr.findById(id).get());
-        return message;
+        return mr.save(message);
     }
 
 }
