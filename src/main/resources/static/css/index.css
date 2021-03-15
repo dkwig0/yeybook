@@ -334,7 +334,7 @@ input:focus, textarea:focus, .text, .input, input {
 
 .chats > .selector > .chat-part {
     background: #F0F0F3;
-    box-shadow: -10px -10px 10px #fff, 10px 0 10px #AEAEC07F;
+    box-shadow: 10px 0 10px #AEAEC07F;
 }
 
 .chats > .selector > .section > .point {
@@ -401,7 +401,7 @@ input:focus, textarea:focus, .text, .input, input {
     display: block;
     position: relative;
     width: 65%;
-    margin-top: 1px;
+    margin: 10px 0;
 }
 
 .message.alien {
