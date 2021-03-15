@@ -198,7 +198,7 @@ function loadChat(id) {
     page = 1;
     $('.messages').html('')
     $.ajax({
-        url: 'api/chats/' + id + '/messages?page=0&size=' + pageSize,
+        url: 'api/chats/' + id + '/messages?page=1&size=' + pageSize,
         type: 'GET',
         dataType: 'json',
         success: function (messages) {
@@ -206,6 +206,8 @@ function loadChat(id) {
             for (let i = 0; i < messages.length; i++) {
                 prependMessage(messages[i]);
             }
+            $('.chat > .messages').prepend('<button onclick="loadMore()">load more</button>')
+            page++;
             scrollDown();
         }
     });
@@ -213,16 +215,19 @@ function loadChat(id) {
 
 function loadMore() {
     $.ajax({
-        url: 'api/chats/' + $('.chat').attr('id') + '/messages?page=0&size=' + pageSize,
+        url: 'api/chats/' + $('.chat').attr('id') + '/messages?page=' + page + '&size=' + pageSize,
         type: 'GET',
         dataType: 'json',
         success: function (messages) {
+            $('.chat > .messages > button').remove()
             console.log(messages)
             for (let i = 0; i < messages.length; i++) {
                 prependMessage(messages[i]);
             }
+            if (messages.length === pageSize) {
+                $('.chat > .messages').prepend('<button onclick="loadMore()">load more</button>')
+            }
             page++;
-            scrollDown();
         }
     });
 }
