@@ -384,6 +384,8 @@ input:focus, textarea:focus, .text, .input, input {
 
 .messages {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     top: 0;
     right: 0;
     bottom: 60px;
@@ -405,11 +407,11 @@ input:focus, textarea:focus, .text, .input, input {
 }
 
 .message.alien {
-    float: left;
+    align-self: flex-start;
 }
 
 .message.predator {
-    float: right;
+    align-self: flex-end;
 }
 
 .message > .section > .text > .the-text-itself {
