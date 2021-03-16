@@ -219,6 +219,8 @@ function loadMore() {
         type: 'GET',
         dataType: 'json',
         success: function (messages) {
+            let height = 0;
+            let loadMoreButtonHeight = $('.chat > .messages > button').outerHeight(true)
             $('.chat > .messages > button').remove()
             console.log(messages)
             for (let i = 0; i < messages.length; i++) {
@@ -226,7 +228,14 @@ function loadMore() {
             }
             if (messages.length === pageSize) {
                 $('.chat > .messages').prepend('<button onclick="loadMore()">load more</button>')
+            } else {
+                height -= loadMoreButtonHeight
             }
+            $('.messages > .message:nth-of-type(-n + ' + (messages.length) + ')').each(function () {
+                height += $(this).outerHeight(true)
+            })
+            console.log(height)
+            $('.chat > .messages').scrollTop(height)
             page++;
         }
     });
