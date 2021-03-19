@@ -222,7 +222,6 @@ function loadMore() {
             let height = 0;
             let loadMoreButtonHeight = $('.chat > .messages > button').outerHeight(true)
             $('.chat > .messages > button').remove()
-            console.log(messages)
             for (let i = 0; i < messages.length; i++) {
                 prependMessage(messages[i]);
             }
@@ -234,7 +233,6 @@ function loadMore() {
             $('.messages > .message:nth-of-type(-n + ' + (messages.length) + ')').each(function () {
                 height += $(this).outerHeight(true)
             })
-            console.log(height)
             $('.chat > .messages').scrollTop(height)
             page++;
         }
