@@ -85,7 +85,7 @@ form > * {
     inset -5px -5px 10px #fff;
 }
 
-.inputs > input:focus {
+*:focus {
     outline: none;
 }
 
