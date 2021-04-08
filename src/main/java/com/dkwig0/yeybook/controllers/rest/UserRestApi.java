@@ -4,11 +4,10 @@ import com.dkwig0.yeybook.exceptions.UserNotFoundException;
 import com.dkwig0.yeybook.jpa.entities.User;
 import com.dkwig0.yeybook.jpa.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.security.Principal;
 import java.util.List;
 
@@ -20,7 +19,9 @@ public class UserRestApi {
     UserRepository ur;
 
     @GetMapping
-    public List<User> users() {
+    public List<User> findUser(@RequestParam(name = "like", required = false) String like) {
+        if (like != null)
+            return ur.findByUsernameLike(like, PageRequest.of(0, 5));
         return ur.findAll();
     }
 
