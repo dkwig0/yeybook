@@ -24,14 +24,17 @@ public class YeybookSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/registration", "/js/*", "/css/*", "/static/wav/*", "/img/**")
                     .permitAll()
-                .anyRequest().authenticated()
+                    .anyRequest()
+                        .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                    .loginPage("/login")
+                    .loginProcessingUrl("/login")
+                    .defaultSuccessUrl("/")
+                    .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                    .permitAll();
         http.csrf().disable();
     }
 
