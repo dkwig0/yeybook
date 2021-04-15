@@ -5,6 +5,8 @@ const pageSize = 5;
 
 var stomp;
 
+var findUsersRequest;
+
 connect()
 
 $(document).ready(function () {
@@ -292,6 +294,43 @@ function prependMessage(message) {
         '</div>' +
         '</div>');
     scrollDown()
+}
+
+function findUsers(input) {
+    clearTimeout(findUsersRequest)
+    findUsersRequest = setTimeout(() => {
+        if ($(input).val().length > 0) {
+            $.ajax({
+                url: 'api/users?like=%25' + $(input).val() + '%25',
+                type: 'GET',
+                dataType: 'json',
+                success: function (users) {
+                    fillFoundUsers(users)
+                }
+            })
+        }
+    }, 2000)
+}
+
+function fillFoundUsers(users) {
+    let usersElem = $('.found')
+    usersElem.empty()
+    for (let i = 0; i < users.length; i++) {
+        usersElem.append('<div class="user-found" onclick="addAFriend(\'' + users[i].username + '\')">' + users[i].username + '</div>')
+    }
+}
+
+function addAFriend(name) {
+    $.ajax({
+        url: 'api/chats',
+        type: 'POST',
+        data: name,
+        success: function (room) {
+            loadChats()
+            subscribe(room.id)
+            loadChat(room.id)
+        }
+    })
 }
 
 class Message {

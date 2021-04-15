@@ -27,6 +27,12 @@ public class ChatRoom {
     public ChatRoom() {
     }
 
+    public ChatRoom(Set<User> users, Set<Message> messages, boolean anonymous) {
+        this.users = users;
+        this.messages = messages;
+        this.anonymous = anonymous;
+    }
+
     public Set<User> getUsers() {
         return users;
     }
